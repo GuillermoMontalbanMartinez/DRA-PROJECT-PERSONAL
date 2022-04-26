@@ -48,7 +48,9 @@ public class DietaService {
                 Integer kcalAlimento = toIntOrNull(tds.get(7).text());
         
                 dietaData.add(new DietaDto(alimento, carbohidratos, kcalCarbohidratos, proteinas, kcalProteinas, grasas, kcalGrasas, kcalAlimento));
+            }
 
+            return dietaData;
         } catch (IOException e) {
             e.printStackTrace();
         }
