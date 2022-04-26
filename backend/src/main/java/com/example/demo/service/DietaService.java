@@ -36,13 +36,13 @@ public class DietaService {
                 Elements tds = row.getElementsByTag("td");
           
                 // Selección de los elementos td que contiene los valores de los nutrientes
-                Integer carbohidratos = toIntOrNull(tds.get(1).text());
-                Integer kcalCarbohidratos = toIntOrNull(tds.get(2).text());
-                Integer proteinas = toIntOrNull(tds.get(3).text());
-                Integer kcalProteinas = toIntOrNull(tds.get(4).text());
-                Integer grasas = toIntOrNull(tds.get(5).text());
-                Integer kcalGrasas = toIntOrNull(tds.get(6).text());
-                Integer kcalAlimento = toIntOrNull(tds.get(7).text());
+                Double carbohidratos = toIntOrNull(tds.get(1).text());
+                Double kcalCarbohidratos = toIntOrNull(tds.get(2).text());
+                Double proteinas = toIntOrNull(tds.get(3).text());
+                Double kcalProteinas = toIntOrNull(tds.get(4).text());
+                Double grasas = toIntOrNull(tds.get(5).text());
+                Double kcalGrasas = toIntOrNull(tds.get(6).text());
+                Double kcalAlimento = toIntOrNull(tds.get(7).text());
         
                 dietaData.add(new DietaDto(alimento, carbohidratos, kcalCarbohidratos, proteinas, kcalProteinas, grasas, kcalGrasas, kcalAlimento));
             }
@@ -54,9 +54,9 @@ public class DietaService {
         return null;
     }
 
-    private Integer toIntOrNull(String replace) {
+    private Double toIntOrNull(String replace) {
         try {
-            return Integer.parseInt(replace.replace(",", ""));
+            return Double.parseDouble(replace.replace(",", "."));
         } catch (NumberFormatException e) {
             return null;
         }

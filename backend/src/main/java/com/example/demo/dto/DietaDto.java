@@ -2,18 +2,18 @@ package com.example.demo.dto;
 
 public class DietaDto {
     public String  alimento;
-    public Integer carboidratos;
-    public Integer kcalCarboidratos;
-    public Integer proteinas;
-    public Integer kcalProteinas;
-    public Integer grasas;
-    public Integer kcalGrasas;
-    public Integer kcalAlimento;
+    public Double carboidratos;
+    public Double kcalCarboidratos;
+    public Double proteinas;
+    public Double kcalProteinas;
+    public Double grasas;
+    public Double kcalGrasas;
+    public Double kcalAlimento;
 
     public DietaDto() {
     }
 
-    public DietaDto(String alimento, Integer carboidratos, Integer kcalCarboidratos, Integer proteinas, Integer kcalProteinas, Integer grasas, Integer kcalGrasas, Integer kcalAlimento) {
+    public DietaDto(String alimento, Double carboidratos, Double kcalCarboidratos, Double proteinas, Double kcalProteinas, Double grasas, Double kcalGrasas, Double kcalAlimento) {
         this.alimento = alimento;
         this.carboidratos = carboidratos;
         this.kcalCarboidratos = kcalCarboidratos;
