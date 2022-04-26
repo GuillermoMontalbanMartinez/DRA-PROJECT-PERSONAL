@@ -1,6 +1,10 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.DietaDto;
+import com.microsoft.playwright.Browser;
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.Playwright;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,39 +22,38 @@ public class DietaService {
         List<DietaDto> dietaData = new ArrayList<>();
 
         try {
-            // Conexión con la página web
+            // Conexión con la web
             Document webPage = Jsoup.connect("https://es.wikipedia.org/wiki/Dieta_(alimentación)").get();
-            // Selección del elemento tbody de la tabla Alimentos y energía de la web
-            Element tbody = webPage.getElementById("mw-content-text").getElementsByTag("tbody").get(0);
+            // Seleccion del elemento tbody de la capa con class sortable wikitable jquery-tablesorter
+            Element tbody = webPage.getElementsByClass("sortable wikitable jquery-tablesorter").get(0);
             // Selección de los elementos hijos de la etiqueta tbody que empiezan en la posición 3.
             List<Element> rows = tbody.children().subList(3, tbody.children().size());
 
+            // Recorrer los elementos hijos de la etiqueta tbody, es decir, cada alimento
             for (Element row : rows) {
                 Elements ths = row.getElementsByTag("th");
-                if(ths.isEmpty()) {
+                if (ths.isEmpty())
                     continue;
-                }
-                // Selección de los elementos th que contiene el nombe del alimento
+                // Selección de los elementos th que contiene el nombre del alimento
                 String alimento = ths.get(0).text();
-                Element tds = row.getElementById("td");
-
+                Elements tds = row.getElementsByTag("td");
+          
                 // Selección de los elementos td que contiene los valores de los nutrientes
-                Integer carboidratos = toIntOrNull(((List<Element>) tds).get(1).text());
-                Integer kcalCarboidratos = toIntOrNull(((List<Element>) tds).get(2).text());
-                Integer proteinas = toIntOrNull(((List<Element>) tds).get(3).text());
-                Integer kcalProteinas = toIntOrNull(((List<Element>) tds).get(4).text());
-                Integer grasas = toIntOrNull(((List<Element>) tds).get(5).text());
-                Integer kcalGrasas = toIntOrNull(((List<Element>) tds).get(6).text());
-                Integer kcalAlimento = toIntOrNull(((List<Element>) tds).get(7).text());
-                
-                dietaData.add(new DietaDto(alimento, carboidratos, kcalCarboidratos, proteinas, kcalProteinas, grasas, kcalGrasas, kcalAlimento));
-            }
+                Integer carbohidratos = toIntOrNull(tds.get(1).text());
+                Integer kcalCarbohidratos = toIntOrNull(tds.get(2).text());
+                Integer proteinas = toIntOrNull(tds.get(3).text());
+                Integer kcalProteinas = toIntOrNull(tds.get(4).text());
+                Integer grasas = toIntOrNull(tds.get(5).text());
+                Integer kcalGrasas = toIntOrNull(tds.get(6).text());
+                Integer kcalAlimento = toIntOrNull(tds.get(7).text());
+        
+                dietaData.add(new DietaDto(alimento, carbohidratos, kcalCarbohidratos, proteinas, kcalProteinas, grasas, kcalGrasas, kcalAlimento));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
-    
 
     private Integer toIntOrNull(String replace) {
         try {
