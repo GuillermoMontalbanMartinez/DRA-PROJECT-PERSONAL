@@ -1,9 +1,6 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.DietaDto;
-import com.microsoft.playwright.Browser;
-import com.microsoft.playwright.Page;
-import com.microsoft.playwright.Playwright;
 
 import java.io.IOException;
 import java.util.ArrayList;
